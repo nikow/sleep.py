@@ -7,7 +7,7 @@ time_units = {
     's':1,
     'm':60,
     'h':60*60,
-    'd':24*60*60
+    'd':24*60*60,
 }
 
 if len(sys.argv) <= 1 or sys.argv[1] in ("-h", "-help", "--help"):
@@ -25,13 +25,23 @@ for arg in sys.argv:
     else:
         time_to_sleep += int(arg)
 
-for x in xrange(time_to_sleep, 0, -1):
-    hours   = x/60/60
-    minutes = x%(60*60)/60
-    seconds = x%60
-    sys.stdout.write("\rETA {0:02d}:{1:02d}:{2:02d}".format(hours, minutes, seconds))
-    sys.stdout.flush()
-    time.sleep(1)
+try:
+    for x in xrange(time_to_sleep, 0, -1):
+        days    = x/60/60/24
+        hours   = (x/(60*60))%24
+        minutes = (x/60)%60
+        seconds = x%60
 
-sys.stdout.write("Time out!")
-sys.stdout.flush()
+        sys.stdout.write(
+            "\rETA {0:02d}:{1:02d}:{2:02d}:{3:02d}".\
+            format(days, hours, minutes, seconds)
+        )
+        sys.stdout.flush()
+
+        time.sleep(1)
+    sys.stdout.write("\nTime out!\n")
+    sys.stdout.flush()
+except KeyboardInterrupt:
+    sys.stdout.write('\nAborted by Keyboard Interrupt!\n')
+
+sys.exit()

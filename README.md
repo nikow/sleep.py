@@ -10,3 +10,4 @@ it's very ussesfull in my own bash scripts.
 |2014-01-23|Added before and after "Time out!" message new line.|
 |2014-01-20|Start project. Added first version of script.|
 |2015-12-13|Readme reformated|
+|2016-02-07|Update to python3|
